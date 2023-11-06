@@ -17,18 +17,25 @@ function togglePlayPause() {
         song.play();
         playPause.classList.add("fa-pause");
         playPause.classList.remove("fa-play");
+        
+       
+        setInterval(() => {
+            slider.value = song.currentTime;
+        }, 500);
     }
 }
-if(song.play()){
-    setInterval(()=>{
-        ProgressEvent.value = song.currentTime
-    },500)
+
+slider.onchange = function () {
+    song.currentTime = slider.value;
 }
-slider.onchange=function(){
+
+
+song.ontimeupdate = function () {
+    slider.value = song.currentTime;
+}
+
+window.addEventListener("load", function () {
     song.play();
-    song.currentTime= slider.value;
     playPause.classList.add("fa-pause");
-        playPause.classList.remove("fa-play");
-}
-
-
+    playPause.classList.remove("fa-play");
+});
